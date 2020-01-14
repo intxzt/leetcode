@@ -1,4 +1,4 @@
-package com.xzt.explore.structure;
+package com.xzt.explore.structure.queue;
 
 public class MyCircularQueue {
     public static void main(String[] args) {
