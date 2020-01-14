@@ -1,0 +1,2 @@
+# leetcode
+train of algorithms
