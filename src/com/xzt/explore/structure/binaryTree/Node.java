@@ -1,7 +1,5 @@
 package com.xzt.explore.structure.binaryTree;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -17,11 +15,15 @@ public class Node {
         binaryTree.add(10);
         binaryTree.add(14);
         binaryTree.add(13);
+        System.out.println("先序遍历----");
         System.out.println(binaryTree.DLRLoop().toString());
         System.out.println(binaryTree.DLR().toString());
-
+        System.out.println("中序遍历----");
         System.out.println(binaryTree.LDRLoop().toString());
         System.out.println(binaryTree.LDR().toString());
+        System.out.println("后序遍历----");
+        System.out.println(binaryTree.LRDLoop().toString());
+        System.out.println(binaryTree.LRD().toString());
     }
     private int data;
     private Node left;
@@ -43,6 +45,10 @@ public class Node {
         List<Integer> list = new ArrayList<>();
         return LDR(list);
     }
+    public List<Integer> LRD(){
+        List<Integer> list = new ArrayList<>();
+        return LRD(list);
+    }
 
     /**
      * 先序遍历（循环）
@@ -52,12 +58,12 @@ public class Node {
         List<Integer> list = new ArrayList<>();
         Node pop;
         Stack<Node> values = new Stack<>();
-        values.add(this);
+        values.push(this);
         while (!values.isEmpty()){
             pop = values.pop();
             list.add(pop.data);
-            if (pop.right!=null)values.add(pop.right);
-            if (pop.left!=null)values.add(pop.left);
+            if (pop.right!=null)values.push(pop.right);
+            if (pop.left!=null)values.push(pop.left);
         }
         return list;
     }
@@ -81,25 +87,43 @@ public class Node {
      * @return
      */
     public List<Integer> LDRLoop() {
-        Stack<Node> stk = new Stack<>();
+        Stack<Node> values = new Stack<>();
         List<Integer> list = new ArrayList<>();
-        Node p = this;//辅助节点
-        stk.add(p);
-        while (!stk.isEmpty()) {
-            //只要你有左孩子，就将左孩子压入栈中
-            if (p != null && p.left != null) {
-                stk.add(p.left);
-                p = p.left;
-            } else {
-                p = stk.pop();//弹出栈顶节点  左孩子--->根节点
-                list.add(p.data);
-                if (p.right != null) {//如果栈点元素有右孩子的话，将右节点压入栈中
-                    stk.add(p.right);
-                    p = p.right;
-                } else {
-                    p = null;//p=stk.pop;已经访问过p了，p设置为null
-                }
+        Node pop = this;//辅助节点
+        values.push(pop);
+        while (!values.isEmpty()) {
+            //左子树和根节点入栈
+            while (pop != null && pop.left != null) {
+                values.push(pop.left);
+                pop = pop.left;
             }
+            //出栈
+            pop = values.pop();
+            list.add(pop.data);
+            //右子树入栈
+            if ((pop = pop.right)!=null)values.push(pop);
+        }
+        return list;
+    }
+
+    /**
+     * 后序遍历（循环）
+     * @return
+     */
+    public List<Integer> LRDLoop() {
+        Node pop;
+        List<Integer> list = new ArrayList<>();
+        Stack<Node> values = new Stack<>();
+        Stack<Node> result = new Stack<>();
+        values.push(this);
+        while (!values.isEmpty()){
+            pop = values.pop();
+            result.push(pop);
+            if (pop.left!=null)values.push(pop.left);
+            if (pop.right!=null)values.push(pop.right);
+        }
+        while (!result.isEmpty()){
+            list.add(result.pop().data);
         }
         return list;
     }
@@ -117,6 +141,22 @@ public class Node {
         if (this.right != null) {
             this.right.LDR(list);
         }
+        return list;
+    }
+
+    /**
+     * 后序遍历（递归）
+     * @param list
+     * @return
+     */
+    private List<Integer> LRD(List<Integer> list) {
+        if (this.left != null) {
+            this.left.LRD(list);
+        }
+        if (this.right != null) {
+            this.right.LRD(list);
+        }
+        list.add(this.data);
         return list;
     }
 
