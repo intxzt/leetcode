@@ -25,6 +25,7 @@ public class Node {
         System.out.println(binaryTree.LRDLoop().toString());
         System.out.println(binaryTree.LRD().toString());
     }
+
     private int data;
     private Node left;
     private Node right;
@@ -33,25 +34,28 @@ public class Node {
         super();
     }
 
-    public Node(int data){
+    public Node(int data) {
         this.data = data;
     }
 
-    public List<Integer> DLR(){
+    public List<Integer> DLR() {
         List<Integer> list = new ArrayList<>();
         return DLR(list);
     }
-    public List<Integer> LDR(){
+
+    public List<Integer> LDR() {
         List<Integer> list = new ArrayList<>();
         return LDR(list);
     }
-    public List<Integer> LRD(){
+
+    public List<Integer> LRD() {
         List<Integer> list = new ArrayList<>();
         return LRD(list);
     }
 
     /**
      * 先序遍历（循环）
+     *
      * @return
      */
     public List<Integer> DLRLoop() {
@@ -59,11 +63,11 @@ public class Node {
         Node pop;
         Stack<Node> values = new Stack<>();
         values.push(this);
-        while (!values.isEmpty()){
+        while (!values.isEmpty()) {
             pop = values.pop();
             list.add(pop.data);
-            if (pop.right!=null)values.push(pop.right);
-            if (pop.left!=null)values.push(pop.left);
+            if (pop.right != null) values.push(pop.right);
+            if (pop.left != null) values.push(pop.left);
         }
         return list;
     }
@@ -84,6 +88,7 @@ public class Node {
 
     /**
      * 中序遍历（循环）
+     *
      * @return
      */
     public List<Integer> LDRLoop() {
@@ -101,35 +106,14 @@ public class Node {
             pop = values.pop();
             list.add(pop.data);
             //右子树入栈
-            if ((pop = pop.right)!=null)values.push(pop);
-        }
-        return list;
-    }
-
-    /**
-     * 后序遍历（循环）
-     * @return
-     */
-    public List<Integer> LRDLoop() {
-        Node pop;
-        List<Integer> list = new ArrayList<>();
-        Stack<Node> values = new Stack<>();
-        Stack<Node> result = new Stack<>();
-        values.push(this);
-        while (!values.isEmpty()){
-            pop = values.pop();
-            result.push(pop);
-            if (pop.left!=null)values.push(pop.left);
-            if (pop.right!=null)values.push(pop.right);
-        }
-        while (!result.isEmpty()){
-            list.add(result.pop().data);
+            if ((pop = pop.right) != null) values.push(pop);
         }
         return list;
     }
 
     /**
      * 中序遍历（递归）
+     *
      * @param list
      * @return
      */
@@ -145,7 +129,31 @@ public class Node {
     }
 
     /**
+     * 后序遍历（循环）
+     *
+     * @return
+     */
+    public List<Integer> LRDLoop() {
+        Node pop;
+        List<Integer> list = new ArrayList<>();
+        Stack<Node> values = new Stack<>();
+        Stack<Node> result = new Stack<>();
+        values.push(this);
+        while (!values.isEmpty()) {
+            pop = values.pop();
+            result.push(pop);
+            if (pop.left != null) values.push(pop.left);
+            if (pop.right != null) values.push(pop.right);
+        }
+        while (!result.isEmpty()) {
+            list.add(result.pop().data);
+        }
+        return list;
+    }
+
+    /**
      * 后序遍历（递归）
+     *
      * @param list
      * @return
      */
@@ -162,19 +170,20 @@ public class Node {
 
     /**
      * 添加元素
+     *
      * @param data
      */
-    public void add(int data){
-        if (this.data> data){
-            if (this.left==null){
+    public void add(int data) {
+        if (this.data > data) {
+            if (this.left == null) {
                 this.left = new Node(data);
-            }else {
+            } else {
                 this.left.add(data);
             }
-        }else {
-            if (this.right==null){
+        } else {
+            if (this.right == null) {
                 this.right = new Node(data);
-            }else {
+            } else {
                 this.right.add(data);
             }
         }
