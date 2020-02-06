@@ -1,8 +1,6 @@
 package com.xzt.explore.structure.binaryTree;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class Node {
     public static void main(String[] args) {
@@ -24,6 +22,8 @@ public class Node {
         System.out.println("后序遍历----");
         System.out.println(binaryTree.LRDLoop().toString());
         System.out.println(binaryTree.LRD().toString());
+
+        System.out.println(binaryTree.levelOrder().toString());
     }
 
     private int data;
@@ -166,6 +166,30 @@ public class Node {
         }
         list.add(this.data);
         return list;
+    }
+
+    /**
+     * 层序遍历
+     *
+     * @return
+     */
+    public List<List<Integer>> levelOrder() {
+        List<List<Integer>> res = new ArrayList<>();
+        Queue<Node> q = new LinkedList<>();
+        q.add(this);
+        while (!q.isEmpty()) {
+            List<Integer> list = new ArrayList<>();
+            int nums = q.size();
+            for (int i = 0; i < nums; i++) {
+                Node temp = q.poll();
+                if (temp == null) break;
+                list.add(temp.data);
+                if (temp.left != null) q.add(temp.left);
+                if (temp.right != null) q.add(temp.right);
+            }
+            res.add(list);
+        }
+        return res;
     }
 
     /**
