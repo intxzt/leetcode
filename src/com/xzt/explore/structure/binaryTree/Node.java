@@ -22,13 +22,20 @@ public class Node {
         System.out.println("后序遍历----");
         System.out.println(binaryTree.LRDLoop().toString());
         System.out.println(binaryTree.LRD().toString());
-
+        System.out.println("层次遍历----");
         System.out.println(binaryTree.levelOrder().toString());
+        System.out.println("深度（先序）----");
+        System.out.println(binaryTree.getDepthFront());
+        System.out.println("深度（后序）----");
+        System.out.println(binaryTree.getDeepBack());
+        System.out.println("深度（后序）（类内部）----");
+        System.out.println(binaryTree.maxDepthBack());
     }
 
     private int data;
     private Node left;
     private Node right;
+    private int depth;
 
     public Node() {
         super();
@@ -211,6 +218,65 @@ public class Node {
                 this.right.add(data);
             }
         }
+    }
+
+    /**
+     * 后序遍历求深度（类内部）
+     *
+     * @return
+     */
+    public int maxDepthBack() {
+        int left_depth = 0;
+        int right_depth = 0;
+        if (this.left != null) {
+            left_depth = this.left.maxDepthBack();
+        }
+        if (this.right != null) {
+            right_depth = this.right.maxDepthBack();
+        }
+        return Math.max(left_depth, right_depth) + 1;
+    }
+
+    /**
+     * 后序遍历求深度
+     *
+     * @param n
+     * @return
+     */
+    private int maxDepthBack(Node n) {
+        if (n == null) {
+            return 0;
+        }
+        int left_depth = maxDepthBack(n.left);
+        int right_depth = maxDepthBack(n.right);
+        return Math.max(left_depth, right_depth) + 1;
+    }
+
+    public int getDeepBack() {
+        return maxDepthBack(this);
+    }
+
+    /**
+     * 先序遍历求深度
+     *
+     * @param n
+     * @param d
+     */
+    private void maxDepthFront(Node n, int d) {
+        if (n == null) {
+            return;
+        }
+        if (n.left == null && n.right == null) {
+            depth = Math.max(depth, d);
+        }
+        maxDepthFront(n.left, d + 1);
+        maxDepthFront(n.right, d + 1);
+    }
+
+    public int getDepthFront() {
+        depth = 0;
+        maxDepthFront(this, 1);
+        return depth;
     }
 
     public int getData() {
