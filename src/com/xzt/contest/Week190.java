@@ -8,7 +8,7 @@ public class Week190 {
      * @return
      */
     public int isPrefixOfWord(String sentence, String searchWord) {
-        String[] strings = searchWord.split(" ");
+        String[] strings = sentence.split(" ");
         for (int i = 0; i < strings.length; i++) {
             if (strings[i].startsWith(searchWord))
                 return i + 1;
