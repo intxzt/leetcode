@@ -3,6 +3,7 @@ package com.xzt.contest;
 public class Week190 {
     /**
      * 5416. 检查单词是否为句中其他单词的前缀
+     *
      * @param sentence
      * @param searchWord
      * @return
@@ -18,6 +19,7 @@ public class Week190 {
 
     /**
      * 5417. 定长子串中元音的最大数目
+     *
      * @param s
      * @param k
      * @return
@@ -40,10 +42,33 @@ public class Week190 {
                 || s.charAt(index) == 'u';
     }
 
+
+    /**
+     * Definition for a binary tree node.
+     */
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
     /**
      * 5418. 二叉树中的伪回文路径
      */
-    private int[] nums = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    private int[] nums = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private int ans = 0;
 
     public int pseudoPalindromicPaths(TreeNode root) {
