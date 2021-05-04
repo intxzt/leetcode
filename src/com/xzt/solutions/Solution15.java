@@ -1,4 +1,4 @@
-package com.xzt.solution;
+package com.xzt.solutions;
 
 import java.util.ArrayList;
 import java.util.Arrays;

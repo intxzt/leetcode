@@ -1,4 +1,4 @@
-package com.xzt.solution;
+package com.xzt.solutions;
 
 public class Solution283 {
     public void moveZeroes(int[] nums) {

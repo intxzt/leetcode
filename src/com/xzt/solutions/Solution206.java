@@ -1,7 +1,7 @@
-package com.xzt.solution;
+package com.xzt.solutions;
 
 public class Solution206 {
-    public static class ListNode {
+    private static class ListNode {
         int val;
         ListNode next;
 
