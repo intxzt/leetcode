@@ -45,8 +45,6 @@ public class Solution1473 {
                         dp[i][j][k] += cost[i][j];
                     }
                 }
-
-
             }
         }
         int ans = INFTY;
